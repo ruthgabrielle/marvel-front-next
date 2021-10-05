@@ -1,10 +1,22 @@
 import Head from 'next/head'
-import * as React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Typography, Box } from '@mui/material/';
 import '@fontsource/roboto/400.css';
 import styles from '../styles/Home.module.css'
+import api from './api/api';
 
 export default function Home() {
+  const fetchMovies = useCallback(() => {
+    api.get('/')
+      .then((response) => {
+        console.log(response.data)
+      })
+  }, [])
+
+  useEffect(() => {
+    fetchMovies()
+  }, [fetchMovies])
+
   return (
     <div className={styles.container}>
       <Head>
